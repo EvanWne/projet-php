@@ -1,8 +1,6 @@
 <?php
-// index.php - Page d'accueil (Version Finale)
 require_once 'includes/header.php';
 
-// Récupérer les derniers films
 $stmt = $pdo->query("
     SELECT m.*, d.name as director_name, c.name as category_name 
     FROM movies m 

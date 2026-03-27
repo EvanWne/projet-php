@@ -1,5 +1,4 @@
 <?php
-// bydirector.php - Films par réalisateur (Version Finale)
 require_once 'includes/header.php';
 
 if (!isset($_GET['director_id']) || !is_numeric($_GET['director_id'])) {
@@ -10,7 +9,6 @@ if (!isset($_GET['director_id']) || !is_numeric($_GET['director_id'])) {
 
 $director_id = (int)$_GET['director_id'];
 
-// Récupérer le nom du réalisateur
 $stmt = $pdo->prepare("SELECT name FROM directors WHERE id = ?");
 $stmt->execute([$director_id]);
 $director = $stmt->fetch();
