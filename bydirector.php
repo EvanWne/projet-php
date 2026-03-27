@@ -1,4 +1,5 @@
 <?php
+// bydirector.php - Films par réalisateur (Version Finale)
 require_once 'includes/header.php';
 
 if (!isset($_GET['director_id']) || !is_numeric($_GET['director_id'])) {
@@ -9,6 +10,7 @@ if (!isset($_GET['director_id']) || !is_numeric($_GET['director_id'])) {
 
 $director_id = (int)$_GET['director_id'];
 
+// Récupérer le nom du réalisateur
 $stmt = $pdo->prepare("SELECT name FROM directors WHERE id = ?");
 $stmt->execute([$director_id]);
 $director = $stmt->fetch();
@@ -33,9 +35,7 @@ $movies = $stmt->fetchAll();
 <h2 class="mb-4">Films réalisés par <?= htmlspecialchars($director['name']) ?></h2>
 
 <?php if (empty($movies)): ?>
-    <div class="alert alert-info">
-        Aucun film disponible pour ce réalisateur pour le moment.
-    </div>
+    <div class="alert alert-info">Aucun film trouvé pour ce réalisateur.</div>
 <?php else: ?>
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         <?php foreach ($movies as $movie): ?>
@@ -48,22 +48,12 @@ $movies = $stmt->fetchAll();
                     
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= htmlspecialchars($movie['title']) ?></h5>
-                        <p class="card-text text-muted">
-                            <?= htmlspecialchars($movie['category_name']) ?>
-                        </p>
-                        <p class="card-text">
-                            <strong><?= number_format($movie['price'], 2) ?> €</strong>
-                        </p>
+                        <p class="card-text text-muted"><?= htmlspecialchars($movie['category_name']) ?></p>
+                        <p class="card-text"><strong><?= number_format($movie['price'], 2) ?> €</strong></p>
                         
                         <div class="mt-auto">
-                            <a href="movie.php?id=<?= $movie['id'] ?>" 
-                               class="btn btn-primary btn-sm w-100 mb-2">
-                                Voir les détails
-                            </a>
-                            <a href="add_to_cart.php?id=<?= $movie['id'] ?>" 
-                               class="btn btn-success btn-sm w-100">
-                                <i class="fas fa-cart-plus"></i> Ajouter au panier
-                            </a>
+                            <a href="movie.php?id=<?= $movie['id'] ?>" class="btn btn-primary btn-sm w-100 mb-2">Voir détails</a>
+                            <a href="add_to_cart.php?id=<?= $movie['id'] ?>" class="btn btn-success btn-sm w-100">Ajouter au panier</a>
                         </div>
                     </div>
                 </div>
@@ -73,9 +63,7 @@ $movies = $stmt->fetchAll();
 <?php endif; ?>
 
 <div class="mt-4">
-    <a href="index.php" class="btn btn-secondary">
-        ← Retour à l'accueil
-    </a>
+    <a href="index.php" class="btn btn-secondary">← Retour à l'accueil</a>
 </div>
 
 <?php require_once 'includes/footer.php'; ?>

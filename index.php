@@ -2,7 +2,7 @@
 // index.php - Page d'accueil (Version Finale)
 require_once 'includes/header.php';
 
-// Récupérer les derniers films ajoutés
+// Récupérer les derniers films
 $stmt = $pdo->query("
     SELECT m.*, d.name as director_name, c.name as category_name 
     FROM movies m 
@@ -26,11 +26,7 @@ $movies = $stmt->fetchAll();
 
 <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
     <?php if (empty($movies)): ?>
-        <div class="col-12">
-            <div class="alert alert-warning text-center">
-                Aucun film disponible pour le moment.
-            </div>
-        </div>
+        <div class="alert alert-warning text-center">Aucun film disponible pour le moment.</div>
     <?php else: ?>
         <?php foreach ($movies as $movie): ?>
             <div class="col">
@@ -42,22 +38,16 @@ $movies = $stmt->fetchAll();
                     
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= htmlspecialchars($movie['title']) ?></h5>
-                        <p class="card-text text-muted">
-                            <?= htmlspecialchars($movie['director_name']) ?>
-                        </p>
+                        <p class="card-text text-muted"><?= htmlspecialchars($movie['director_name']) ?></p>
                         <p class="card-text fs-5">
                             <strong><?= number_format($movie['price'], 2) ?> €</strong>
                         </p>
                         
                         <div class="mt-auto">
                             <a href="movie.php?id=<?= $movie['id'] ?>" 
-                               class="btn btn-primary btn-sm w-100 mb-2">
-                                Voir les détails
-                            </a>
+                               class="btn btn-primary btn-sm w-100 mb-2">Voir détails</a>
                             <a href="add_to_cart.php?id=<?= $movie['id'] ?>" 
-                               class="btn btn-success btn-sm w-100">
-                                <i class="fas fa-cart-plus"></i> Ajouter au panier
-                            </a>
+                               class="btn btn-success btn-sm w-100">Ajouter au panier</a>
                         </div>
                     </div>
                 </div>
