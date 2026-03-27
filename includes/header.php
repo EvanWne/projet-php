@@ -3,7 +3,7 @@
 session_start();
 require_once __DIR__ . '/../config/db.php';
 
-// Définir le chemin de base du projet
+// Base URL du projet
 $base_url = '/PROJET_PHP/';
 ?>
 
@@ -81,3 +81,19 @@ $base_url = '/PROJET_PHP/';
     </nav>
 
     <div class="container mt-4">
+
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= htmlspecialchars($_SESSION['success']) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <?= htmlspecialchars($_SESSION['error']) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
