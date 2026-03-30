@@ -48,17 +48,14 @@ $purchased_movies = $stmt->fetchAll();
         <?php endif; ?>
     </div>
 
-    <!-- Formulaire changement de mot de passe -->
     <div class="col-md-4">
         <h4>Changer mon mot de passe</h4>
-        <form method="POST" action="change_password.php" class="card p-3">
-            <div class="mb-3">
-                <label class="form-label">Nouveau mot de passe</label>
-                <input type="password" name="new_password" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-warning">Changer le mot de passe</button>
-        </form>
+        <div class="card p-3">
+            <p>Pour des raisons de sécurité, veuillez utiliser la page dédiée.</p>
+            <a href="change_password.php" class="btn btn-warning w-100">
+                <i class="fas fa-key"></i> Changer mon mot de passe
+            </a>
+        </div>
     </div>
-</div>
 
 <?php require_once '../includes/footer.php'; ?>
